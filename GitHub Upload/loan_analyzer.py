@@ -1,5 +1,6 @@
 # coding: utf-8
 import csv
+from multiprocessing.sharedctypes import Value
 from pathlib import Path
 
 # Part 1
@@ -51,16 +52,6 @@ else:
 
 
 
-"""Part 3: Perform Financial Calculations.
-
-Perform financial calculations using functions.
-
-1. Define a new function that will be used to calculate present value.
-    a. This function should include parameters for `future_value`, `remaining_months`, and the `annual_discount_rate`
-    b. The function should return the `present_value` for the loan.
-2. Use the function to calculate the present value of the new loan given below.
-    a. Use an `annual_discount_rate` of 0.2 for this new loan calculation.
-"""
 
 # Part 3
 # New Loan Data
@@ -85,16 +76,7 @@ print(f"The present value of the loan is: ${present_value: .2f}.")
 
 
 
-"""Part 4: Conditionally filter lists of loans.
-
-In this section, you will use a loop to iterate through a series of loans and select only the inexpensive loans.
-
-1. Create a new, empty list called `inexpensive_loans`.
-2. Use a for loop to select each loan from a list of loans.
-    a. Inside the for loop, write an if-statement to determine if the loan_price is less than or equal to 500
-    b. If the loan_price is less than or equal to 500 then append that loan to the `inexpensive_loans` list.
-3. Print the list of inexpensive_loans.
-"""
+# Part 4
 
 loans = [
     {
@@ -138,25 +120,26 @@ for item in loans:
 print("These are the inexpensive loans:", inexpensive_loans)
 
 
-"""Part 5: Save the results.
 
-Output this list of inexpensive loans to a csv file
-    1. Use `with open` to open a new CSV file.
-        a. Create a `csvwriter` using the `csv` library.
-        b. Use the new csvwriter to write the header variable as the first row.
-        c. Use a for loop to iterate through each loan in `inexpensive_loans`.
-            i. Use the csvwriter to write the `loan.values()` to a row in the CSV file.
 
-    Hint: Refer to the official documentation for the csv library.
-    https://docs.python.org/3/library/csv.html#writer-objects
+# Part 5
 
-"""
+import csv
+from pathlib import Path
 
-# Set the output header
 header = ["loan_price", "remaining_months", "repayment_interval", "future_value"]
 
-# Set the output file path
-output_path = Path("inexpensive_loans.csv")
+csvpath = Path("inexpensive_loans.csv")
+
+with open(csvpath, 'w', newline='') as output_file:
+
+    csvwriter = csv.writer(output_file)
+
+    csvwriter.writerow(header)
+    
+    for loan in inexpensive_loans:
+        csvwriter.writerow(loan.value())
+
 
 # @TODO: Use the csv library and `csv.writer` to write the header row
 # and each row of `loan.values()` from the `inexpensive_loans` list.
