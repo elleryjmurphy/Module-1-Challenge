@@ -30,7 +30,7 @@ loan = {
     "future_value": 1000,
 }
 
-# 1. using get() to extract "future value" and "remaining months" data
+# Usie get() to extract "future value" and "remaining months" data
 future_value = loan.get("future_value")
 print("The future loan value is $", future_value)
 
@@ -38,12 +38,12 @@ remaining_months = loan.get("remaining_months")
 print("The number of remaining months on the loan is", remaining_months)
 
 
-# 2. Calculate fair value using present value formula
+# Calculate fair value using present value formula
 present_value = future_value / (1 + .2/12) ** remaining_months
 fair_value = present_value
 print("The fair value of the loan is $", (round(fair_value, 2)))
 
-# 3. Conditional statement to decide if the present value represents the loan's fair value
+# Conditional statement to decide if the present value represents the loan's fair value
 if present_value >= fair_value:
     print("The loan is worth at least the cost to purchase.")
 else:
@@ -76,7 +76,7 @@ def calculate_present_value(future_value, remaining_months, annual_discount_rate
     present_value = (future_value / (1 + annual_discount_rate/12) ** remaining_months)
 
     return present_value
-    
+
 
 # Use the function to calculate the present value of the new loan using 0.2 as annual discount rate.
 present_value = calculate_present_value(new_loan["future_value"], new_loan["remaining_months"], annual_discount_rate=.2)
@@ -123,14 +123,19 @@ loans = [
     },
 ]
 
-# @TODO: Create an empty list called `inexpensive_loans`
-# YOUR CODE HERE!
 
-# @TODO: Loop through all the loans and append any that cost $500 or less to the `inexpensive_loans` list
-# YOUR CODE HERE!
+# Empty list called "inexpensive_loans"
+inexpensive_loans = []
 
-# @TODO: Print the `inexpensive_loans` list
-# YOUR CODE HERE!
+
+# Loop through loans and append those that are $500 or less into the empty list I created
+for item in loans:
+    if item.get("loan_price") <= 500:
+        inexpensive_loans.append(item)
+    
+
+# Print the `inexpensive_loans` list
+print("These are the inexpensive loans:", inexpensive_loans)
 
 
 """Part 5: Save the results.
